@@ -1,0 +1,55 @@
+---
+title: "Analysis of SARS-CoV-2 SNP Data"
+author: "Anthony Kessell"
+date: "September 23, 2024"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE)
+```
+
+
+# Load packages and Data
+
+We are going to load both the dplyer and ggplot2 packages for our analysis.
+
+```{r, load-packages-and-data}
+library(dplyr)
+library(ggplot2)
+library(knitr)
+
+# load in SNP data
+snp_data <- read.csv("data/sample_snp_data.csv")
+```
+
+The first question we have about this dataset is the quality of the SNP calls for each of the three different samples in this dataset. To asses this we'll take a look at the mean and standard deviation of the quality scores in the dataset.
+
+```{r, summarize-quality}
+snp_data %>%
+  group_by(sample) %>%
+  summarise(mean_quality = mean(qual),
+            sd_quality = sd(qual)) %>%
+  kable()
+```
+
+From this, we can see that sample SRR12433065 
+
+To dig in a bit here, let's ,ales a plot looking at the distribution of SNPs across the genome for these three samples to see if there is some pattern. Maybe all the low quality ones are in a specific region.
+
+```{r, plot-quality-across-genome}
+snp_data %>%
+  ggplot(aes(x = pos,
+           y = qual,
+           color = sample)) +
+  geom_point(size = 3) +
+  labs(title = "SNP quality across SARS-CoV-2 Genome",
+       x = "Position in Genome (nt)",
+       y = "SNP Quality")
+```
+
+
+
+
+
+
