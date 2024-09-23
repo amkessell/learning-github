@@ -4,4 +4,6 @@ Anthony Kessell
 amkessell@dons.usfca.edu         
 September 23, 2024    
 
-This projects incudes a script to subset and plot some SNP data.
+This projects includes a script to subset and plot some SNP data.
+
+Here's a sentence that I added on my laptop.
